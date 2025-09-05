@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio - Student Achievement Tracker</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#60A5FA',
+                            secondary: '#93C5FD',
+                            accent: '#1E3A8A',
+                            dark: {
+                                100: '#1F2937',
+                                200: '#111827',
+                                300: '#0F172A',
+                                400: '#030712'
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+            .content-area {
+            @apply bg-dark-100 rounded-lg shadow-md p-6 border border-gray-700;
+            }
+            .btn-primary {
+            @apply bg-primary hover:bg-secondary text-dark-300 font-bold py-2 px-4 rounded transition-colors;
+            }
+            .btn-secondary {
+            @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded transition-colors;
+            }
+            }
+        </style>
+    </head>
+    <body class="bg-dark-300 min-h-screen text-gray-200">
+        <!-- Navigation -->
+        <nav class="bg-dark-200 shadow-md border-b border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-award text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-200">AchieveTrack</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-400 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="text-gray-400 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="text-gray-400 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="text-primary hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="text-gray-400 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="text-gray-400 hover:text-primary transition-colors">Reports</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative" id="user-menu">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User" class="w-8 h-8 rounded-full">
+                        <span class="hidden md:inline-block text-sm font-medium text-gray-300">John Doe</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <!-- Dropdown menu (hidden by default) -->
+                        <div class="absolute right-0 mt-2 w-48 bg-dark-100 rounded-md shadow-lg py-1 hidden border border-gray-700" id="user-dropdown">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Logout</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-300 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div class="md:hidden hidden bg-dark-200 border-t border-gray-700" id="mobile-menu">
+                <div class="container mx-auto px-4 py-2 space-y-2">
+                    <a href="index.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Reports</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Portfolio Generator Section -->
+            <div id="portfolio-section">
+                <h1 class="text-2xl font-bold text-gray-100 mb-6">Portfolio Generator</h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="content-area md:col-span-2">
+                        <h2 class="text-lg font-semibold text-gray-200 mb-4">Portfolio Customization</h2>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Portfolio Title</label>
+                                <input type="text" value="John Doe - Academic Portfolio" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Include Categories</label>
+                                <div class="mt-2 space-y-2">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="cat-academic" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                        <label for="cat-academic" class="ml-2 block text-sm text-gray-300">Academic</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="cat-professional" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                        <label for="cat-professional" class="ml-2 block text-sm text-gray-300">Professional</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="cat-extracurricular" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                        <label for="cat-extracurricular" class="ml-2 block text-sm text-gray-300">Extracurricular</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="cat-research" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                        <label for="cat-research" class="ml-2 block text-sm text-gray-300">Research</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Time Period</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs text-gray-400 mb-1">From</label>
+                                        <input type="date" value="2021-09-01" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-gray-400 mb-1">To</label>
+                                        <input type="date" value="2024-03-01" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Template Style</label>
+                                <select class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>Modern Professional</option>
+                                    <option>Academic Classic</option>
+                                    <option>Creative Showcase</option>
+                                    <option>Minimal Resume</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-end space-x-3">
+                                <button type="button" class="btn-secondary">Preview</button>
+                                <button type="button" class="btn-primary">Generate PDF</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="content-area" id="share">
+                        <h2 class="text-lg font-semibold text-gray-200 mb-4">Sharing Options</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Public Portfolio Link</label>
+                                <div class="flex">
+                                    <input type="text" value="https://achievetrack.edu/portfolio/johndoe" readonly class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <button class="bg-gray-700 px-3 py-2 border border-gray-600 rounded-r-md hover:bg-gray-600 text-gray-200 transition-colors">
+                                    <i class="far fa-copy"></i>
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-1">This link provides read-only access to your portfolio</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Share via</label>
+                                <div class="flex space-x-2 mt-2">
+                                    <button class="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
+                                    <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button class="p-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition-colors">
+                                    <i class="fab fa-linkedin-in"></i>
+                                    </button>
+                                    <button class="p-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                                    <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="p-2 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition-colors">
+                                    <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-700 pt-4 mt-4">
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Privacy Settings</label>
+                                <div class="mt-2 space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="privacy-public" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                            <label for="privacy-public" class="ml-2 block text-sm text-gray-300">Public Portfolio</label>
+                                        </div>
+                                        <span class="text-xs text-gray-400">Anyone with the link can view</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="privacy-contact" class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                            <label for="privacy-contact" class="ml-2 block text-sm text-gray-300">Show Contact Info</label>
+                                        </div>
+                                        <span class="text-xs text-gray-400">Email and phone visible</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="privacy-search" checked class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                                            <label for="privacy-search" class="ml-2 block text-sm text-gray-300">Discoverable</label>
+                                        </div>
+                                        <span class="text-xs text-gray-400">Appear in search results</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JavaScript for interactivity -->
+        <script src="app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Achievement Tracker</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#60A5FA',
+                            secondary: '#93C5FD',
+                            accent: '#1E3A8A',
+                            dark: {
+                                100: '#1F2937',
+                                200: '#111827',
+                                300: '#0F172A',
+                                400: '#030712'
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+            .content-area {
+            @apply bg-dark-100 rounded-lg shadow-md p-6 border border-gray-700;
+            }
+            .btn-primary {
+            @apply bg-primary hover:bg-secondary text-dark-300 font-bold py-2 px-4 rounded transition-colors;
+            }
+            .btn-secondary {
+            @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded transition-colors;
+            }
+            }
+        </style>
+    </head>
+    <body class="bg-dark-300 min-h-screen text-gray-200">
+        <!-- Navigation -->
+        <nav class="bg-dark-200 shadow-md border-b border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-award text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-200">AchieveTrack</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-primary hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="text-gray-400 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="text-gray-400 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="text-gray-400 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="text-gray-400 hover:text-primary transition-colors">Reports</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative" id="user-menu">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User" class="w-8 h-8 rounded-full">
+                        <span class="hidden md:inline-block text-sm font-medium text-gray-300">John Doe</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <!-- Dropdown menu (hidden by default) -->
+                        <div class="absolute right-0 mt-2 w-48 bg-dark-100 rounded-md shadow-lg py-1 hidden border border-gray-700" id="user-dropdown">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Logout</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-300 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div class="md:hidden hidden bg-dark-200 border-t border-gray-700" id="mobile-menu">
+                <div class="container mx-auto px-4 py-2 space-y-2">
+                    <a href="index.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Reports</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Login Section -->
+            <div id="login-section" class="max-w-md mx-auto content-area">
+                <div class="text-center mb-8">
+                    <i class="fas fa-award text-primary text-4xl mb-4"></i>
+                    <h1 class="text-2xl font-bold text-gray-100">Student Achievement Tracker</h1>
+                    <p class="text-gray-400 mt-2">Login to manage your achievements</p>
+                </div>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="login-id" class="block text-sm font-medium text-gray-300 mb-1">Email or College ID</label>
+                        <input type="text" id="login-id" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div>
+                        <label for="login-password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                        <input type="password" id="login-password" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember-me" class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200 rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-300">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-primary hover:text-secondary">Forgot password?</a>
+                    </div>
+                    <div>
+                        <button type="button" id="login-button" class="w-full btn-primary">Login</button>
+                    </div>
+                    <div class="flex items-center my-4">
+                        <hr class="flex-grow border-gray-600">
+                        <span class="px-3 text-gray-400 text-sm">OR</span>
+                        <hr class="flex-grow border-gray-600">
+                    </div>
+                    <div>
+                        <button type="button" class="w-full bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                        <i class="fab fa-google mr-2"></i> Sign in with Google
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Student Dashboard -->
+            <div id="dashboard-section" class="hidden">
+                <h1 class="text-2xl font-bold text-gray-100 mb-6">Dashboard</h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="content-area">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-200">Recent Achievements</h2>
+                            <a href="achievements.html" class="text-primary hover:text-secondary text-sm">View All</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-green-500 pl-3 py-2">
+                                <p class="text-sm text-gray-400">Academic</p>
+                                <p class="font-medium">Dean's List - Fall 2023</p>
+                                <p class="text-xs text-gray-400">Approved</p>
+                            </div>
+                            <div class="border-l-4 border-yellow-500 pl-3 py-2">
+                                <p class="text-sm text-gray-400">Extracurricular</p>
+                                <p class="font-medium">Chess Tournament - 2nd Place</p>
+                                <p class="text-xs text-gray-400">Pending</p>
+                            </div>
+                            <div class="border-l-4 border-blue-500 pl-3 py-2">
+                                <p class="text-sm text-gray-400">Professional</p>
+                                <p class="font-medium">Web Development Internship</p>
+                                <p class="text-xs text-gray-400">Approved</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <h2 class="text-lg font-semibold text-gray-200 mb-4">Quick Actions</h2>
+                        <div class="space-y-3">
+                            <a href="achievements.html#new" class="w-full text-left px-4 py-3 bg-accent hover:bg-dark-100 rounded-md flex items-center transition-colors text-gray-200">
+                            <i class="fas fa-plus-circle text-primary mr-3"></i>
+                            <span>Add New Achievement</span>
+                            </a>
+                            <a href="portfolio.html" class="w-full text-left px-4 py-3 bg-accent hover:bg-dark-100 rounded-md flex items-center transition-colors text-gray-200">
+                            <i class="fas fa-file-export text-primary mr-3"></i>
+                            <span>Generate Portfolio</span>
+                            </a>
+                            <a href="portfolio.html#share" class="w-full text-left px-4 py-3 bg-accent hover:bg-dark-100 rounded-md flex items-center transition-colors text-gray-200">
+                            <i class="fas fa-share-alt text-primary mr-3"></i>
+                            <span>Share Portfolio Link</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <h2 class="text-lg font-semibold text-gray-200 mb-4">Status Summary</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-300">Approved</span>
+                                    <span class="text-sm font-medium text-gray-300">8</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 66%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-300">Pending</span>
+                                    <span class="text-sm font-medium text-gray-300">3</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-300">Rejected</span>
+                                    <span class="text-sm font-medium text-gray-300">1</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 9%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JavaScript for interactivity -->
+        <script src="app.js"></script>
+    </body>
+</html>

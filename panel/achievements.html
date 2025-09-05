@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Achievements - Student Achievement Tracker</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#60A5FA',
+                            secondary: '#93C5FD',
+                            accent: '#1E3A8A',
+                            dark: {
+                                100: '#1F2937',
+                                200: '#111827',
+                                300: '#0F172A',
+                                400: '#030712'
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+            .content-area {
+            @apply bg-dark-100 rounded-lg shadow-md p-6 border border-gray-700;
+            }
+            .btn-primary {
+            @apply bg-primary hover:bg-secondary text-dark-300 font-bold py-2 px-4 rounded transition-colors;
+            }
+            .btn-secondary {
+            @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded transition-colors;
+            }
+            }
+        </style>
+    </head>
+    <body class="bg-dark-300 min-h-screen text-gray-200">
+        <!-- Navigation -->
+        <nav class="bg-dark-200 shadow-md border-b border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-award text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-200">AchieveTrack</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-400 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="text-gray-400 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="text-primary hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="text-gray-400 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="text-gray-400 hover:text-primary transition-colors">Reports</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative" id="user-menu">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User" class="w-8 h-8 rounded-full">
+                        <span class="hidden md:inline-block text-sm font-medium text-gray-300">John Doe</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <!-- Dropdown menu (hidden by default) -->
+                        <div class="absolute right-0 mt-2 w-48 bg-dark-100 rounded-md shadow-lg py-1 hidden border border-gray-700" id="user-dropdown">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Logout</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-300 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div class="md:hidden hidden bg-dark-200 border-t border-gray-700" id="mobile-menu">
+                <div class="container mx-auto px-4 py-2 space-y-2">
+                    <a href="index.html" id="mobile-nav-home" class="block py-2 text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" id="mobile-nav-profile" class="block py-2 text-gray-300 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" id="mobile-nav-achievements" class="block py-2 text-primary font-medium transition-colors">Achievements</a>
+                    <a href="portfolio.html" id="mobile-nav-portfolio" class="block py-2 text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" id="mobile-nav-admin" class="block py-2 text-gray-300 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" id="mobile-nav-reports" class="block py-2 text-gray-300 hover:text-primary transition-colors">Reports</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Achievement Upload Section -->
+            <div id="achievement-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-100">My Achievements</h1>
+                    <button id="new-achievement-btn" class="btn-primary flex items-center">
+                    <i class="fas fa-plus mr-2"></i> New Achievement
+                    </button>
+                </div>
+                <!-- Achievement List -->
+                <div class="content-area mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-200">All Achievements</h2>
+                        <div class="flex space-x-2">
+                            <select class="px-3 py-1 bg-dark-200 border border-gray-600 text-gray-200 rounded-md text-sm">
+                                <option>All Categories</option>
+                                <option>Academic</option>
+                                <option>Extracurricular</option>
+                                <option>Professional</option>
+                                <option>Research</option>
+                            </select>
+                            <select class="px-3 py-1 bg-dark-200 border border-gray-600 text-gray-200 rounded-md text-sm">
+                                <option>All Status</option>
+                                <option>Approved</option>
+                                <option>Pending</option>
+                                <option>Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-dark-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-dark-100 divide-y divide-gray-700">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-200">Dean's List - Fall 2023</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Academic</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Dec 15, 2023</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Approved</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-primary hover:text-secondary mr-3">View</a>
+                                        <a href="#" class="text-green-300 hover:text-green-500">Download</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-200">Chess Tournament - 2nd Place</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Extracurricular</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Feb 10, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-primary hover:text-secondary mr-3">View</a>
+                                        <a href="#" class="text-green-300 hover:text-green-500">Download</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-200">Web Development Internship</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Professional</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Jan 5, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Approved</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-primary hover:text-secondary mr-3">View</a>
+                                        <a href="#" class="text-green-300 hover:text-green-500"> Download</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-200">Research Paper Publication</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Research</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Nov 20, 2023</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Rejected</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-primary hover:text-secondary mr-3">View</a>
+                                        <a href="#" class="text-green-300 hover:text-green-500">Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- New Achievement Form (Hidden by default) -->
+                <div id="new-achievement-form" class="content-area hidden">
+                    <h2 class="text-lg font-semibold text-gray-200 mb-4">Add New Achievement</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Achievement Title</label>
+                            <input type="text" placeholder="E.g., Hackathon Winner, Research Publication" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Category</label>
+                                <select class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>Academic</option>
+                                    <option>Extracurricular</option>
+                                    <option>Professional</option>
+                                    <option>Research</option>
+                                    <option>Community Service</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Date Achieved</label>
+                                <input type="date" class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                            <textarea rows="4" placeholder="Describe your achievement in detail..." class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Supporting Document</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md bg-dark-200">
+                                <div class="space-y-1 text-center">
+                                    <i class="fas fa-cloud-upload-alt text-gray-300 text-3xl"></i>
+                                    <div class="flex text-sm text-gray-300">
+                                        <label for="file-upload" class="relative cursor-pointer bg-dark-200 rounded-md font-medium text-primary hover:text-secondary">
+                                        <span>Upload a file</span>
+                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-400">PDF, PNG, JPG up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" id="cancel-achievement-btn" class="btn-secondary">Cancel</button>
+                            <button type="button" class="btn-primary">Submit for Approval</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- JavaScript for interactivity -->
+        <script src="app.js"></script>
+    </body>
+</html>

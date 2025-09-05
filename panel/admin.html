@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Panel - Student Achievement Tracker</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#60A5FA',
+                            secondary: '#93C5FD',
+                            accent: '#1E3A8A',
+                            dark: {
+                                100: '#1F2937',
+                                200: '#111827',
+                                300: '#0F172A',
+                                400: '#030712'
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+            .content-area {
+            @apply bg-dark-100 rounded-lg shadow-md p-6 border border-gray-700;
+            }
+            .btn-primary {
+            @apply bg-primary hover:bg-secondary text-dark-300 font-bold py-2 px-4 rounded transition-colors;
+            }
+            .btn-secondary {
+            @apply bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded transition-colors;
+            }
+            }
+        </style>
+    </head>
+    <body class="bg-dark-300 min-h-screen text-gray-200">
+        <!-- Navigation -->
+        <nav class="bg-dark-200 shadow-md border-b border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-award text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-200">AchieveTrack</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-400 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="text-gray-400 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="text-gray-400 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="text-primary hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="text-gray-400 hover:text-primary transition-colors">Reports</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative" id="user-menu">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User" alt="User" class="w-8 h-8 rounded-full">
+                        <span class="hidden md:inline-block text-sm font-medium text-gray-300">Admin</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <!-- Dropdown menu (hidden by default) -->
+                        <div class="absolute right-0 mt-2 w-48 bg-dark-100 rounded-md shadow-lg py-1 hidden border border-gray-700" id="user-dropdown">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-200">Logout</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-300 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div class="md:hidden hidden bg-dark-200 border-t border-gray-700" id="mobile-menu">
+                <div class="container mx-auto px-4 py-2 space-y-2">
+                    <a href="index.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="profile.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Profile</a>
+                    <a href="achievements.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="admin.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Admin</a>
+                    <a href="reports.html" class="block py-2 text-gray-300 hover:text-primary transition-colors">Reports</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Faculty/Admin Validation Panel -->
+            <div id="admin-section">
+                <h1 class="text-2xl font-bold text-gray-100 mb-6">Achievement Validation Panel</h1>
+                <div class="content-area mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-200">Pending Submissions</h2>
+                        <div class="flex space-x-2">
+                            <select class="px-3 py-1 bg-dark-200 border border-gray-600 text-gray-200 rounded-md text-sm">
+                                <option>All Departments</option>
+                                <option>Computer Science</option>
+                                <option>Electrical Engineering</option>
+                                <option>Mechanical Engineering</option>
+                            </select>
+                            <select class="px-3 py-1 bg-dark-200 border border-gray-600 text-gray-200 rounded-md text-sm">
+                                <option>All Categories</option>
+                                <option>Academic</option>
+                                <option>Extracurricular</option>
+                                <option>Professional</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-dark-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Student</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Achievement</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Submitted</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-dark-100 divide-y divide-gray-700">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-200">John Doe</div>
+                                                <div class="text-sm text-gray-400">CS21003</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-200">Chess Tournament - 2nd Place</div>
+                                        <div class="text-xs text-gray-400">University Chess Championship</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Extracurricular</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Feb 10, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="review-btn text-primary hover:text-secondary mr-3">Review</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Sarah+Johnson" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-200">Sarah Johnson</div>
+                                                <div class="text-sm text-gray-400">EE22015</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-200">IEEE Paper Publication</div>
+                                        <div class="text-xs text-gray-400">International Conference on Electronics</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Research</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Feb 8, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="review-btn text-primary hover:text-secondary mr-3">Review</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Michael+Smith" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-200">Michael Smith</div>
+                                                <div class="text-sm text-gray-400">ME20042</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-200">Robotics Competition Winner</div>
+                                        <div class="text-xs text-gray-400">National Robotics League</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Academic</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">Feb 5, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="review-btn text-primary hover:text-secondary mr-3">Review</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Validation Review Panel (Hidden by default) -->
+                <div id="validation-review-panel" class="content-area hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-200">Review Achievement</h2>
+                        <button id="close-review-btn" class="text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="border-b border-gray-700 pb-4 mb-4">
+                        <div class="flex items-center mb-3">
+                            <div class="flex-shrink-0 h-12 w-12">
+                                <img class="h-12 w-12 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe" alt="">
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-lg font-medium text-gray-200">John Doe</div>
+                                <div class="text-sm text-gray-400">Computer Science • 3rd Year</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-400">Achievement Title</p>
+                                <p class="font-medium text-gray-200">Chess Tournament - 2nd Place</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Category</p>
+                                <p class="font-medium text-gray-200">Extracurricular</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Date Achieved</p>
+                                <p class="font-medium text-gray-200">February 10, 2024</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Submitted On</p>
+                                <p class="font-medium text-gray-200">February 12, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="font-medium text-gray-200 mb-2">Description</h3>
+                        <p class="text-gray-300">
+                            Participated in the University Chess Championship and secured 2nd place among 48 participants. The tournament was held over two days and included participants from 12 different colleges. I won 6 out of 7 matches, losing only in the final round.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="font-medium text-gray-200 mb-2">Supporting Document</h3>
+                        <div class="border border-gray-700 rounded-md p-3 bg-dark-200">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <i class="far fa-file-pdf text-red-500 text-xl mr-2"></i>
+                                    <span>Chess_Tournament_Certificate.pdf</span>
+                                </div>
+                                <div>
+                                    <button class="text-primary hover:text-secondary text-sm">View</button>
+                                    <button class="text-gray-600 hover:text-gray-900 text-sm ml-2">Download</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="font-medium text-gray-200 mb-2">Validation Decision</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="radio" id="approve" name="validation" value="approve" class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200">
+                                <label for="approve" class="ml-2 block text-sm text-gray-300">Approve</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="reject" name="validation" value="reject" class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200">
+                                <label for="reject" class="ml-2 block text-sm text-gray-300">Reject</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="more-info" name="validation" value="more-info" class="h-4 w-4 text-primary focus:ring-primary border-gray-600 bg-dark-200">
+                                <label for="more-info" class="ml-2 block text-sm text-gray-300">Request More Information</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Comments</label>
+                        <textarea rows="3" placeholder="Add your comments here..." class="w-full px-3 py-2 bg-dark-200 border border-gray-600 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-4">
+                        <button type="button" class="btn-secondary">Cancel</button>
+                        <button type="button" class="btn-primary">Submit Decision</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JavaScript for interactivity -->
+        <script src="app.js"></script>
+    </body>
+</html>
